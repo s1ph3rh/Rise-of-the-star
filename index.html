@@ -1,0 +1,156 @@
+<!DOCTYPE html><html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Rise of a Star</title>
+  <style>
+    body {
+      background-color: #121212;
+      color: white;
+      font-family: Arial, sans-serif;
+      padding: 20px;
+      line-height: 1.6;
+    }
+    h1 {
+      font-family: 'Arial Black', sans-serif;
+      color: gold;
+      text-shadow: 2px 2px black;
+      font-size: 2.2em;
+      text-align: center;
+      margin-bottom: 10px;
+    }
+    .center {
+      text-align: center;
+    }
+    .button {
+      display: block;
+      background: gold;
+      color: black;
+      border: none;
+      padding: 10px 20px;
+      margin: 10px auto;
+      font-size: 1em;
+      border-radius: 8px;
+      cursor: pointer;
+      width: 200px;
+    }
+    .store, .career-stats, .social, .match-log, .awards, .trophies {
+      margin-top: 30px;
+    }
+    .section-title {
+      font-weight: bold;
+      font-size: 1.3em;
+      border-bottom: 1px solid #444;
+      padding-bottom: 5px;
+      margin-bottom: 10px;
+    }
+    .stat, .log, .item, .award, .trophy, .social-post {
+      background: #1e1e1e;
+      padding: 10px;
+      border-radius: 6px;
+      margin-bottom: 6px;
+    }
+  </style>
+</head>
+<body>
+  <h1>⭐ Rise of a Star ⭐</h1>
+  <p class="center">
+    You’re a young boy from <strong>Soweto</strong> with a dream: to rise through the ranks of the <strong>Kaizer Chiefs Academy</strong> and one day conquer the biggest stadiums in <strong>Europe</strong>.<br><br>
+    Choose your position, build your legacy, and take your shot at football greatness.
+  </p>  <div class="center">
+    <button class="button" onclick="startGame()">Start Career</button>
+    <button class="button" onclick="viewStats()">View Career Stats</button>
+    <button class="button" onclick="openStore()">Store</button>
+    <button class="button" onclick="checkAwards()">Awards</button>
+    <button class="button" onclick="showTrophies()">Club Trophies</button>
+    <button class="button" onclick="showSocial()">Social Feed</button>
+  </div>  <div class="career-stats"></div>
+  <div class="match-log"></div>
+  <div class="store"></div>
+  <div class="awards"></div>
+  <div class="trophies"></div>
+  <div class="social"></div>  <script>
+    let player = {
+      name: "You",
+      age: 13,
+      position: "Midfielder",
+      team: "Kaizer Chiefs Academy",
+      goals: 0,
+      assists: 0,
+      matches: 0,
+      awards: [],
+      trophies: [],
+      fame: 0,
+      items: []
+    };
+
+    function startGame() {
+      logMatch();
+    }
+
+    function logMatch() {
+      const result = ["Win", "Draw", "Loss"][Math.floor(Math.random() * 3)];
+      const goal = Math.random() < 0.5 ? 1 : 0;
+      const assist = Math.random() < 0.5 ? 1 : 0;
+      player.matches++;
+      player.goals += goal;
+      player.assists += assist;
+      player.fame += goal + assist;
+
+      const matchDiv = document.querySelector(".match-log");
+      matchDiv.innerHTML += `
+        <div class="log">
+          Match ${player.matches}: ${result}<br>
+          Goals: ${goal}, Assists: ${assist}
+        </div>
+      `;
+    }
+
+    function viewStats() {
+      document.querySelector(".career-stats").innerHTML = `
+        <div class="section-title">Career Stats</div>
+        <div class="stat">Matches: ${player.matches}</div>
+        <div class="stat">Goals: ${player.goals}</div>
+        <div class="stat">Assists: ${player.assists}</div>
+        <div class="stat">Fame: ${player.fame}</div>
+      `;
+    }
+
+    function openStore() {
+      document.querySelector(".store").innerHTML = `
+        <div class="section-title">Store</div>
+        <div class="item">Shin Pads - 5 Fame</div>
+        <div class="item">Boot Upgrade - 10 Fame</div>
+        <div class="item">Energy Drink - 3 Fame</div>
+      `;
+    }
+
+    function checkAwards() {
+      if (player.goals >= 5 && !player.awards.includes("Golden Boy")) {
+        player.awards.push("Golden Boy");
+      }
+
+      let html = `<div class="section-title">Awards</div>`;
+      player.awards.forEach(a => html += `<div class="award">🏆 ${a}</div>`);
+      document.querySelector(".awards").innerHTML = html;
+    }
+
+    function showTrophies() {
+      player.trophies.push("Youth Cup");
+      let html = `<div class="section-title">Club Trophies</div>`;
+      player.trophies.forEach(t => html += `<div class="trophy">🏅 ${t}</div>`);
+      document.querySelector(".trophies").innerHTML = html;
+    }
+
+    function showSocial() {
+      const feed = [
+        "Media: Rising star in Kaizer Chiefs Academy!",
+        "Fans: This kid is one to watch!",
+        "Scout: Keep an eye on this midfielder."
+      ];
+      let html = `<div class="section-title">Social Feed</div>`;
+      feed.forEach(post => html += `<div class="social-post">📱 ${post}</div>`);
+      document.querySelector(".social").innerHTML = html;
+    }
+  </script></body>
+</html>
